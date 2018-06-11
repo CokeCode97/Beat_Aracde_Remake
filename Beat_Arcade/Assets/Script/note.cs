@@ -10,7 +10,7 @@ public class note : MonoBehaviour {
     int note_num = 0;
 	// Use this for initialization
 	void Start () {
-        Init();
+
 	}
 	
 	// Update is called once per frame
@@ -18,8 +18,10 @@ public class note : MonoBehaviour {
         transform.Translate(0, -note_speed, 0);
 	}
 
-    void Init()
+    void Init(int note_num_f)
     {
+        this.note_num = note_num_f;
+        this.transform.position = new Vector2((-8.065f + note_num * 1.625f), 5);
         RGManager.Add_Note(gameObject, note_num);
     }
 
@@ -27,6 +29,26 @@ public class note : MonoBehaviour {
 
     void Judge()
     {
+        switch(judge_list.Count)
+        {
+            case 1 :
+                print("BAD");
+                break;
+            case 2:
+                print("SOSO");
+                break;
+            case 3:
+                print("COOL");
+                break;
+            case 4:
+                print("GOOD");
+                break;
+            case 5:
+                print("PERFECT");
+                break;
+            default :
+                break;
+        }
         if(judge_list.Count > 0)
         {
             print("hit");
@@ -41,6 +63,14 @@ public class note : MonoBehaviour {
         if (collision.transform.CompareTag("Judge"))
         {
             judge_list.Add(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Judge"))
+        {
+            judge_list.Remove(collision.gameObject);
         }
     }
 }
