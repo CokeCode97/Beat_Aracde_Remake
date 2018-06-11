@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events; 
 
 public class note : MonoBehaviour {
+    private List<GameObject> judge_list = new List<GameObject>();
     public float note_speed = 0.5f;
+    int note_num = 0;
 	// Use this for initialization
 	void Start () {
         Init();
@@ -16,13 +18,29 @@ public class note : MonoBehaviour {
         transform.Translate(0, -note_speed, 0);
 	}
 
-    void Click()
-    {
-        transform.position = new Vector2(-8.065f, 5f);
-    }
-
     void Init()
     {
-        GamePlayManager.note_list.Add(gameObject);
+        RGManager.Add_Note(gameObject, note_num);
+    }
+
+
+
+    void Judge()
+    {
+        if(judge_list.Count > 0)
+        {
+            print("hit");
+            RGManager.Remove_Note(gameObject, note_num);
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Judge"))
+        {
+            judge_list.Add(collision.gameObject);
+        }
     }
 }
