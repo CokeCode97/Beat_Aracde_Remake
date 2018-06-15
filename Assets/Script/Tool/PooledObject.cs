@@ -3,12 +3,15 @@ using UnityEngine;
 
 [System.Serializable]
 public class PooledObject {
+    
     public string pool_item_name = string.Empty;
     public GameObject prefeb = null;
     public int poolCount = 0;
 
     [SerializeField]
     private List<GameObject> pool_list = new List<GameObject>();
+
+
 
     public void Init(Transform parent = null) {
         for (int i = 0; i < poolCount; i++) {

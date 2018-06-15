@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : Singleton<ObjectPool> {
+    
     public List<PooledObject> object_pool = new List<PooledObject>();
 
     void Awake() {
@@ -17,7 +18,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     // Pool Management
     //============================
 
-    public bool Push(GameObject item, string item_name, Transform parent = null) {
+    public bool Push(string item_name, GameObject item, Transform parent = null) {
         PooledObject pool = Get_Pool_Item(item_name);
         if (pool == null)
             return false;

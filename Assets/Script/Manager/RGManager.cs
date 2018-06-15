@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RGManager : Singleton<RGManager> {
+    
     public List<GameObject>[] note_list;
     public GameObject note;
     float time;
 
-    // Use this for initialization
+
+
     void Awake() {
         note_list = new List<GameObject>[3];
         note_list[0] = new List<GameObject>();
@@ -16,7 +18,6 @@ public class RGManager : Singleton<RGManager> {
     }
 
 
-    // Update is called once per frame
     void Update() {
         time += Time.deltaTime;
 
@@ -43,7 +44,7 @@ public class RGManager : Singleton<RGManager> {
     //============================
 
     void Make_Note() {
-        int num = (int)Random.Range(0, 1);
+        int num = (int)Random.Range(0, 3);
         ObjectPool.access.Pop("note").SendMessage("Init", num);
     }
 

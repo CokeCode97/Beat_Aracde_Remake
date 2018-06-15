@@ -9,19 +9,21 @@ public class Note : MonoBehaviour {
     private List<GameObject> judge_list = new List<GameObject>();
     public float note_speed = 0.5f;
     int note_num = 0;
+    Vector3 note_vector3 = new Vector3();
 
 
 
     void Init(int note_num_f) {
         this.note_num = note_num_f;
         this.transform.position = new Vector2((-8.065f + note_num * 1.625f), 5);
+        note_vector3.Set(0, -note_speed, 0);
         RGManager.access.note_list[note_num].Add(gameObject);
 
     }
 
 
     void Update() {
-        transform.Translate(0, -note_speed, 0);
+        transform.Translate(note_vector3);
     }
 
 
@@ -32,7 +34,7 @@ public class Note : MonoBehaviour {
 
     void Note_Destroy() {
         RGManager.access.note_list[note_num].Remove(gameObject);
-        ObjectPool.access.Push(gameObject, "note");
+        ObjectPool.access.Push("note", gameObject);
     }
 
 
