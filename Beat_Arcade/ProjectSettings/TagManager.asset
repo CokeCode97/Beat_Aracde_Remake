@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Button
   - Judge
+  - MissJudge
   layers:
   - Default
   - TransparentFX

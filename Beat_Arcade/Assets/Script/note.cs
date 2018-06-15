@@ -25,7 +25,11 @@ public class note : MonoBehaviour {
         RGManager.Add_Note(gameObject, note_num);
     }
 
-
+    void Note_Destroy()
+    {
+        RGManager.Remove_Note(gameObject, note_num);
+        ObjectPool.instance.Push(gameObject, "note");
+    }
 
     void Judge()
     {
@@ -49,11 +53,10 @@ public class note : MonoBehaviour {
             default :
                 break;
         }
+
         if(judge_list.Count > 0)
         {
-            print("hit");
-            RGManager.Remove_Note(gameObject, note_num);
-            Destroy(gameObject);
+            Note_Destroy();
         }
 
     }
@@ -63,6 +66,12 @@ public class note : MonoBehaviour {
         if (collision.transform.CompareTag("Judge"))
         {
             judge_list.Add(collision.gameObject);
+        }
+
+        if(collision.transform.CompareTag("MissJudge"))
+        {
+            //print("MISS");
+            Note_Destroy();
         }
     }
 

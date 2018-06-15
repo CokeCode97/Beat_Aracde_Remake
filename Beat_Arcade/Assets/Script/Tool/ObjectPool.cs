@@ -13,7 +13,7 @@ public class ObjectPool : Singleton<ObjectPool> {
         }
     }
 
-    public bool Push_To_Pool(GameObject item, string item_name, Transform parent = null)
+    public bool Push(GameObject item, string item_name, Transform parent = null)
     {
         PooledObject pool = Get_Pool_Item(item_name);
         if (pool == null)
@@ -23,12 +23,12 @@ public class ObjectPool : Singleton<ObjectPool> {
         return true;
     }
 
-    public GameObject Pop_From_Pool(string item_name, Transform parent = null)
+    public GameObject Pop(string item_name, Transform parent = null)
     {
         PooledObject pool = Get_Pool_Item(item_name);
         if (pool == null)
             return null;
-
+        
         return pool.Pop_From_Pool(parent);
     }
 

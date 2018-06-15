@@ -20,7 +20,7 @@ public class RGManager : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if(time > 0.5f)
+        if(time > 2f)
         {
             time = 0;
             Make_Note();
@@ -44,8 +44,8 @@ public class RGManager : MonoBehaviour
 
     void Make_Note()
     {
-        GameObject gObject = Instantiate(note) as GameObject;
-        int num = (int)Random.Range(0, 3);
+        GameObject gObject = ObjectPool.instance.Pop("note");
+        int num = (int)Random.Range(0, 1);
         gObject.SendMessage("Init", num);
         Add_Note(gObject, num);
     }
