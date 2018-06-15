@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
-{
-    private static T _instance;
-	
-    public static T instance
-    {
-        get
-        {
-            if(_instance == null)
-            {
-                _instance = FindObjectOfType(typeof(T)) as T;
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
+    private static T singleton_object;
 
-                if(_instance == null)
-                {
+    public static T access {
+        get {
+            if (singleton_object == null) {
+                singleton_object = FindObjectOfType(typeof(T)) as T;
+
+                if (singleton_object == null) {
                     Debug.LogError("이 씬에" + typeof(T) + "이거 없는데?");
                 }
             }
 
-            return _instance;
+            return singleton_object;
         }
     }
 }

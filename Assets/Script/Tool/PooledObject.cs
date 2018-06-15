@@ -2,8 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PooledObject
-{
+public class PooledObject {
     public string pool_item_name = string.Empty;
     public GameObject prefeb = null;
     public int poolCount = 0;
@@ -11,23 +10,19 @@ public class PooledObject
     [SerializeField]
     private List<GameObject> pool_list = new List<GameObject>();
 
-    public void Init(Transform parent = null)
-    {
-        for(int i = 0; i < poolCount; i++)
-        {
+    public void Init(Transform parent = null) {
+        for (int i = 0; i < poolCount; i++) {
             pool_list.Add(CreateItem(parent));
         }
     }
 
-    public void Push_To_Pool(GameObject item, Transform parent = null)
-    {
+    public void Push(GameObject item, Transform parent = null) {
         item.transform.SetParent(parent);
         item.SetActive(false);
         pool_list.Add(item);
     }
 
-    public GameObject Pop_From_Pool(Transform parent = null)
-    {
+    public GameObject Pop(Transform parent = null) {
         if (pool_list.Count == 0)
             pool_list.Add(CreateItem(parent));
 
@@ -38,8 +33,7 @@ public class PooledObject
         return item;
     }
 
-    private GameObject CreateItem(Transform parent = null)
-    {
+    private GameObject CreateItem(Transform parent = null) {
         GameObject item = Object.Instantiate(prefeb) as GameObject;
         item.name = pool_item_name;
         item.transform.SetParent(parent);
