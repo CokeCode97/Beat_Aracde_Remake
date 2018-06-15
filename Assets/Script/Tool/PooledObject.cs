@@ -16,6 +16,12 @@ public class PooledObject {
         }
     }
 
+
+
+    //============================
+    // Pool Management
+    //============================
+
     public void Push(GameObject item, Transform parent = null) {
         item.transform.SetParent(parent);
         item.SetActive(false);

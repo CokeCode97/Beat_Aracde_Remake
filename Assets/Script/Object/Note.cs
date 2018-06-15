@@ -11,7 +11,7 @@ public class Note : MonoBehaviour {
     int note_num = 0;
 
 
-    // 초기화
+
     void Init(int note_num_f) {
         this.note_num = note_num_f;
         this.transform.position = new Vector2((-8.065f + note_num * 1.625f), 5);
@@ -19,20 +19,23 @@ public class Note : MonoBehaviour {
 
     }
 
-    // 업데이트
+
     void Update() {
         transform.Translate(0, -note_speed, 0);
     }
 
 
 
-    // 노트 파괴
+    //============================
+    // Note Management
+    //============================
+
     void Note_Destroy() {
         RGManager.access.note_list[note_num].Remove(gameObject);
         ObjectPool.access.Push(gameObject, "note");
     }
 
-    // 노트 판정
+
     void Judge() {
         if (judge_list.Count > 0) {
             RGManager.access.Note_Judge(gameObject, judge_list.Count);
@@ -41,7 +44,9 @@ public class Note : MonoBehaviour {
 
 
 
-    // 충돌처리
+    //============================
+    // Collision handling
+    //============================
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.transform.CompareTag("Judge")) {
@@ -52,6 +57,7 @@ public class Note : MonoBehaviour {
             RGManager.access.Note_Judge(gameObject, 0);
         }
     }
+
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.transform.CompareTag("Judge")) {

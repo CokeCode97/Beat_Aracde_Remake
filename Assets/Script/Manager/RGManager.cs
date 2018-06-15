@@ -26,12 +26,21 @@ public class RGManager : Singleton<RGManager> {
         }
     }
 
+    //============================
+    // Input handling
+    //============================
 
     public void Btn_Hit(int num) {
         if (note_list[num][0] != null) {
             note_list[num][0].SendMessage("Judge");
         }
     }
+
+
+
+    //============================
+    // Note Management
+    //============================
 
     void Make_Note() {
         int num = (int)Random.Range(0, 1);
