@@ -13,9 +13,9 @@ public class InputManager : MonoBehaviour {
         
 	}
 
-    public void RT_Button(int num)
+    public void RGButton()
     {
-        RGManager.access.Btn_Hit(num);
+        RGManager.access.Btn_Hit();
     }
 
 

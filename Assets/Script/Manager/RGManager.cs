@@ -3,19 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RGManager : Singleton<RGManager> {
-    
-    public List<GameObject>[] note_list;
-    public GameObject note;
+
+    public List<GameObject> note_list = new List<GameObject>();
+    public GameObject note_parent;
     float time;
-
-
-
-    void Awake() {
-        note_list = new List<GameObject>[3];
-        note_list[0] = new List<GameObject>();
-        note_list[1] = new List<GameObject>();
-        note_list[2] = new List<GameObject>();
-    }
 
 
     void Update() {
@@ -31,9 +22,9 @@ public class RGManager : Singleton<RGManager> {
     // Input handling
     //============================
 
-    public void Btn_Hit(int num) {
-        if (note_list[num][0] != null) {
-            note_list[num][0].SendMessage("Judge");
+    public void Btn_Hit() {
+        if (note_list[0] != null) {
+            note_list[0].SendMessage("Judge");
         }
     }
 
@@ -44,32 +35,29 @@ public class RGManager : Singleton<RGManager> {
     //============================
 
     void Make_Note() {
-        int num = (int)Random.Range(0, 3);
-        ObjectPool.access.Pop("note").SendMessage("Init", num);
+        ObjectPool.access.Pop("note", note_parent.transform).SendMessage("Init");
     }
 
 
     public void Note_Judge(GameObject note, int judge_point) {
         switch (judge_point) {
-            case 0:
-                print("MISS");
-                break;
-            case 1 :
+            case 4 :
                 print("BAD");
                 break;
-            case 2:
+            case 3:
                 print("SOSO");
                 break;
-            case 3:
+            case 2:
                 print("COOL");
                 break;
-            case 4:
+            case 1:
                 print("GOOD");
                 break;
-            case 5:
+            case 0:
                 print("PERFECT");
                 break;
             default :
+                print("MISS");
                 break;
         }
 

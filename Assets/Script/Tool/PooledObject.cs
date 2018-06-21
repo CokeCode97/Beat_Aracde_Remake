@@ -37,6 +37,7 @@ public class PooledObject {
 
         GameObject item = pool_list[0];
         pool_list.RemoveAt(0);
+        item.transform.SetParent(parent);
 
         item.SetActive(true);
         return item;

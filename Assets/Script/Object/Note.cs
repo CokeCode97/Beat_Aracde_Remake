@@ -5,25 +5,54 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 public class Note : MonoBehaviour {
+    RectTransform rect_transform;
 
-    private List<GameObject> judge_list = new List<GameObject>();
-    public float note_speed = 0.5f;
-    int note_num = 0;
-    Vector3 note_vector3 = new Vector3();
+    Vector2 position_vector = new Vector2();
+    Vector2 scale_vector = new Vector2();
+
+    [SerializeField]
+    float note_speed;
+    float scale_x;
+    float scale_y;
 
 
-
-    void Init(int note_num_f) {
-        this.note_num = note_num_f;
-        this.transform.position = new Vector2((-8.065f + note_num * 1.625f), 5);
-        note_vector3.Set(0, -note_speed, 0);
-        RGManager.access.note_list[note_num].Add(gameObject);
-
+    //============================
+    // Init
+    //============================
+    void Awake() {
+        rect_transform = GetComponent<RectTransform>();
     }
 
 
+    void Init() {
+        position_vector.Set(-900, -350);
+        rect_transform.localPosition = position_vector;
+
+        scale_vector.Set(20, 20);
+        rect_transform.localScale = scale_vector;
+
+        RGManager.access.note_list.Add(gameObject);
+    }
+
+
+
+    //============================
+    // Update
+    //============================
+
     void Update() {
-        transform.Translate(note_vector3);
+        scale_x = rect_transform.localScale.x;
+
+        if (scale_x > 2.5) {
+            scale_y = rect_transform.localScale.y;
+            float speed = note_speed * Time.deltaTime;
+
+            scale_vector.Set(scale_x - speed, scale_y - speed);
+            rect_transform.localScale = scale_vector;
+        }
+        else {
+            RGManager.access.Note_Judge(gameObject, 5);
+        }
     }
 
 
@@ -33,37 +62,13 @@ public class Note : MonoBehaviour {
     //============================
 
     void Note_Destroy() {
-        RGManager.access.note_list[note_num].Remove(gameObject);
+        RGManager.access.note_list.Remove(gameObject);
         ObjectPool.access.Push("note", gameObject);
     }
 
 
     void Judge() {
-        if (judge_list.Count > 0) {
-            RGManager.access.Note_Judge(gameObject, judge_list.Count);
-        }
-    }
-
-
-
-    //============================
-    // Collision handling
-    //============================
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.transform.CompareTag("Judge")) {
-            judge_list.Add(collision.gameObject);
-        }
-
-        if (collision.transform.CompareTag("MissJudge")) {
-            RGManager.access.Note_Judge(gameObject, 0);
-        }
-    }
-
-
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.transform.CompareTag("Judge")) {
-            judge_list.Remove(collision.gameObject);
-        }
+        int judge_value = (int)(Mathf.Abs(scale_x - 5)*2);
+        RGManager.access.Note_Judge(gameObject, judge_value);
     }
 }
