@@ -10,7 +10,10 @@ public class InputManager : MonoBehaviour {
 	}
 
 	void Update () {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            RGManager.access.Btn_Hit();
+        }
 	}
 
     public void RGButton()

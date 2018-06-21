@@ -24,7 +24,7 @@ public class RGManager : Singleton<RGManager> {
     //============================
 
     public void Btn_Hit() {
-        if (note_list[0] != null) {
+        if (note_list.Count > 0) {
             note_list[0].SendMessage("Judge");
         }
     }
@@ -59,6 +59,8 @@ public class RGManager : Singleton<RGManager> {
                 print("BAD");
                 break;
             case 5:
+            case 6:
+            case 7:
                 print("MISS");
                 break;
             default :
