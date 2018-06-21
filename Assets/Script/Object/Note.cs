@@ -15,7 +15,9 @@ public class Note : MonoBehaviour {
 
     [SerializeField]
     float note_speed;
+    [SerializeField]
     float first_scale;
+
 
 
     //============================
