@@ -41,20 +41,20 @@ public class RGManager : Singleton<RGManager> {
 
     public void Note_Judge(GameObject note, int judge_point) {
         switch (judge_point) {
-            case 4 :
-                print("BAD");
-                break;
-            case 3:
-                print("SOSO");
-                break;
-            case 2:
-                print("COOL");
+            case 0 :
+                print("PERFECT");
                 break;
             case 1:
                 print("GOOD");
                 break;
-            case 0:
-                print("PERFECT");
+            case 2:
+                print("COOL");
+                break;
+            case 3:
+                print("SOSO");
+                break;
+            case 4:
+                print("BAD");
                 break;
             default :
                 print("MISS");

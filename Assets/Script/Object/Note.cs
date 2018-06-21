@@ -7,28 +7,30 @@ using UnityEngine.Events;
 public class Note : MonoBehaviour {
     RectTransform rect_transform;
 
-    Vector2 position_vector = new Vector2();
+    Vector2 position_vector = new Vector2(-900, -350);
     Vector2 scale_vector = new Vector2();
+
+    float scale_x;
+    float scale_y;
 
     [SerializeField]
     float note_speed;
-    float scale_x;
-    float scale_y;
+    float first_scale;
 
 
     //============================
     // Init
     //============================
+
     void Awake() {
         rect_transform = GetComponent<RectTransform>();
     }
 
 
     void Init() {
-        position_vector.Set(-900, -350);
         rect_transform.localPosition = position_vector;
 
-        scale_vector.Set(20, 20);
+        scale_vector.Set(first_scale, first_scale);
         rect_transform.localScale = scale_vector;
 
         RGManager.access.note_list.Add(gameObject);
