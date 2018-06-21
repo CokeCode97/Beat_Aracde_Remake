@@ -6,15 +6,16 @@ public class RGManager : Singleton<RGManager> {
 
     public List<GameObject> note_list = new List<GameObject>();
     public GameObject note_parent;
-    float time;
+    float time, note_time = 1.0f;
 
 
     void Update() {
         time += Time.deltaTime;
 
-        if (time > 2f) {
+        if (time > note_time) {
             time = 0;
             Make_Note();
+            note_time = Random.Range(0.1f, 1.0f);
         }
     }
 
@@ -40,6 +41,7 @@ public class RGManager : Singleton<RGManager> {
 
 
     public void Note_Judge(GameObject note, int judge_point) {
+        bool note_destroy = true;
         switch (judge_point) {
             case 0 :
                 print("PERFECT");
@@ -56,12 +58,17 @@ public class RGManager : Singleton<RGManager> {
             case 4:
                 print("BAD");
                 break;
-            default :
+            case 5:
                 print("MISS");
+                break;
+            default :
+                note_destroy = false;
                 break;
         }
 
-        note.SendMessage("Note_Destroy");
+        if(note_destroy) {
+            note.SendMessage("Note_Destroy");
+        }
     }
 
 
