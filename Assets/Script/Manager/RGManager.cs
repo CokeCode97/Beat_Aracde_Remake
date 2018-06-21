@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class RGManager : Singleton<RGManager> {
 
     public List<GameObject> note_list = new List<GameObject>();
     public GameObject note_parent;
+    public Text text;
+
     float time, note_time = 1.0f;
 
 
@@ -44,23 +46,28 @@ public class RGManager : Singleton<RGManager> {
         bool note_destroy = true;
         switch (judge_point) {
             case 0 :
-                print("PERFECT");
+                text.text = "PERFECT";
                 break;
             case 1:
+                text.text = "GOOD";
                 print("GOOD");
                 break;
             case 2:
+                text.text = "COOL";
                 print("COOL");
                 break;
             case 3:
+                text.text = "SOSO";
                 print("SOSO");
                 break;
             case 4:
+                text.text = "BAD";
                 print("BAD");
                 break;
             case 5:
             case 6:
             case 7:
+                text.text = "MISS";
                 print("MISS");
                 break;
             default :
