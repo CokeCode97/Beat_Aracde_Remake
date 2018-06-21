@@ -6,9 +6,12 @@ public class RGManager : Singleton<RGManager> {
 
     public List<GameObject> note_list = new List<GameObject>();
     public GameObject note_parent;
+    public GameObject player;
     public Text text;
 
     float time, note_time = 1.0f;
+
+    int combo = 0;
 
 
     void Update() {
@@ -17,7 +20,7 @@ public class RGManager : Singleton<RGManager> {
         if (time > note_time) {
             time = 0;
             Make_Note();
-            note_time = Random.Range(0.1f, 1.0f);
+            note_time = Random.Range(0.1f, 2.5f);
         }
     }
 
@@ -66,13 +69,22 @@ public class RGManager : Singleton<RGManager> {
                 break;
             case 5:
             case 6:
-            case 7:
                 text.text = "MISS";
                 print("MISS");
                 break;
             default :
                 note_destroy = false;
                 break;
+        }
+
+        if(judge_point < 5) {
+            combo++;
+            if (combo % 5 == 0) {
+                AGMAnager.access.Attack(player, combo);
+            }
+        }
+        else if (judge_point == 5 || judge_point == 6){
+            combo = 0;
         }
 
         if(note_destroy) {
