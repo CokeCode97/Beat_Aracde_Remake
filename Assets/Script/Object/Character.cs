@@ -9,8 +9,8 @@ public enum Direction {
 
 public class Character : MonoBehaviour {
 
-    Rigidbody2D rigidbody;
-    Collider2D collider;
+    Rigidbody2D rigidbody2d;
+    Collider2D collider2d;
     GameObject character;
 
     Vector3 angle = new Vector3();
@@ -28,8 +28,8 @@ public class Character : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        rigidbody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        collider2d = GetComponent<Collider2D>();
         character = transform.GetChild(0).gameObject;
 	}
 	
@@ -49,14 +49,14 @@ public class Character : MonoBehaviour {
             Change_Direction();
         }
         if(Input.GetKeyDown(KeyCode.UpArrow)) {
-            rigidbody.AddForce(jump_vector, ForceMode2D.Impulse);
+            rigidbody2d.AddForce(jump_vector, ForceMode2D.Impulse);
         }
 
-        if(rigidbody.velocity.y > 0) {
-            collider.isTrigger = true;
+        if(rigidbody2d.velocity.y > 0) {
+            collider2d.isTrigger = true;
         }
         else {
-            collider.isTrigger = false;
+            collider2d.isTrigger = false;
         }
 	}
 
