@@ -53,24 +53,19 @@ public class RGManager : Singleton<RGManager> {
                 break;
             case 1:
                 text.text = "GOOD";
-                print("GOOD");
                 break;
             case 2:
                 text.text = "COOL";
-                print("COOL");
                 break;
             case 3:
                 text.text = "SOSO";
-                print("SOSO");
                 break;
             case 4:
                 text.text = "BAD";
-                print("BAD");
                 break;
             case 5:
             case 6:
                 text.text = "MISS";
-                print("MISS");
                 break;
             default :
                 note_destroy = false;
@@ -80,7 +75,7 @@ public class RGManager : Singleton<RGManager> {
         if(judge_point < 5) {
             combo++;
             if (combo % 5 == 0) {
-                AGMAnager.access.Attack(player, combo);
+                GManager.access.Object_Move(player, new Vector2(10,0));
             }
         }
         else if (judge_point == 5 || judge_point == 6){

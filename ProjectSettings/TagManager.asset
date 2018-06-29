@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Judge
   - MissJudge
+  - Block
   layers:
   - Default
   - TransparentFX

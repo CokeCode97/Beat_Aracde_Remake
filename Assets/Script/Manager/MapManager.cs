@@ -25,13 +25,13 @@ public class MapManager : Singleton<MapManager> {
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
-            {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)1, (Tile)2, (Tile)2, (Tile)2, (Tile)3, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)1, (Tile)2, (Tile)3, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
             {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)1, (Tile)2, (Tile)2, (Tile)2, (Tile)3, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
-            {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0}
+            {(Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0, (Tile)0},
+            {(Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2, (Tile)2}
         };
 
         Map_Create();
@@ -46,7 +46,7 @@ public class MapManager : Singleton<MapManager> {
         for (int i = 0; i < map_size_y; i++) {
             for (int j = 0; j < map_size_x; j++) {
                 if (map_data[i, j] != Tile.non) {
-                    GameObject map_object = ObjectPool.access.Pop(map_data[i, j].ToString());
+                    GameObject map_object = ObjectPool.access.Pop(map_data[i, j].ToString(), transform);
                     map_object.transform.position = (new Vector2((j - 9) + 0.5f, (i - 5)*-1 - 0.5f));
                 }
             }
