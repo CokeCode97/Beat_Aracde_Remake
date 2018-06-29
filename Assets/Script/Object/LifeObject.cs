@@ -81,6 +81,8 @@ public class LifeObject : MonoBehaviour
     IEnumerator DashCoroutine()
     {
         float dis = 0;
+        parent_rigidbody2d.velocity = new Vector2(0, 0);
+        parent_rigidbody2d.gravityScale = 0;
 
         while (dis < dash_dis)
         {
@@ -94,6 +96,7 @@ public class LifeObject : MonoBehaviour
         }
         is_dash = false;
         parent_rigidbody2d.velocity = new Vector2(0,0);
+        parent_rigidbody2d.gravityScale = 1;
     }
 
 
@@ -145,9 +148,9 @@ public class LifeObject : MonoBehaviour
         if (jump_event != null)
             jump_event();
 
-        if (jump_count_cur < jump_count_max)
+        if (jump_count_cur < jump_count_max && !is_dash)
         {
-            parent_rigidbody2d.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+            parent_rigidbody2d.velocity = Vector2.up * jump_power;
             jump_count_cur++;
         }
     }
