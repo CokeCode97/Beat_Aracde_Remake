@@ -66,6 +66,19 @@ public class PlayerMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //if(Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    Move(Direction.left);
+        //}
+        //if(Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    Move(Direction.right);
+        //}
+        //if(Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    Jump();
+        //}
+
         if (rigid.velocity.y > 0)
         {
             collider.isTrigger = true;
