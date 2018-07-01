@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour {
     //============================
 
     Rigidbody2D rigid;
-    Collider2D collider;
+    Collider2D collid;
     GameObject character_object;
 
 
@@ -114,7 +114,7 @@ public class PlayerMove : MonoBehaviour {
     void Awake()
     {
         rigid = transform.GetComponent<Rigidbody2D>();
-        collider = transform.GetComponent<Collider2D>();
+        collid = transform.GetComponent<Collider2D>();
         character_object = transform.GetChild(0).gameObject;
     }
 
@@ -141,11 +141,11 @@ public class PlayerMove : MonoBehaviour {
     {
         if (rigid.velocity.y > 0)
         {
-            collider.isTrigger = true;
+            collid.isTrigger = true;
         }
         else
         {
-            collider.isTrigger = false;
+            collid.isTrigger = false;
         }
 	}
 
@@ -155,12 +155,12 @@ public class PlayerMove : MonoBehaviour {
     // Move Handling
     //============================
 
-    private void Move(Direction direction)
+    private void Move(Direction direc)
     {
         if (move_event != null)
             move_event();
 
-        Change_Direction(direction);
+        Change_Direction(direc);
 
         if (direction.Equals(Direction.left))
             transform.Translate(Vector2.left * speed * Time.deltaTime);

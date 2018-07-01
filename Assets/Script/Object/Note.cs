@@ -10,13 +10,13 @@ public class Note : MonoBehaviour {
     Vector2 position_vector = new Vector2(-900, -350);
     Vector2 scale_vector = new Vector2();
 
+    public float note_speed;
+    public float first_scale;
+
     float scale_x;
     float scale_y;
 
-    [SerializeField]
-    float note_speed;
-    [SerializeField]
-    float first_scale;
+    float miss_point;
 
 
 
@@ -29,11 +29,13 @@ public class Note : MonoBehaviour {
     }
 
 
-    void Init() {
+    void Init(float judge_standart) {
         rect_transform.localPosition = position_vector;
 
         scale_vector.Set(first_scale, first_scale);
         rect_transform.localScale = scale_vector;
+
+        miss_point = -2.5f + (2.5f * judge_standart);
 
         RGManager.access.note_list.Add(gameObject);
     }
@@ -47,7 +49,7 @@ public class Note : MonoBehaviour {
     void Update() {
         scale_x = rect_transform.localScale.x;
 
-        if (scale_x > 2.5) {
+        if (scale_x > miss_point) {
             scale_y = rect_transform.localScale.y;
             float speed = note_speed * Time.deltaTime;
 
@@ -55,7 +57,7 @@ public class Note : MonoBehaviour {
             rect_transform.localScale = scale_vector;
         }
         else {
-            RGManager.access.Note_Judge(gameObject, 5);
+            RGManager.access.Note_Judge(gameObject, 0);
         }
     }
 
@@ -65,14 +67,15 @@ public class Note : MonoBehaviour {
     // Note Management
     //============================
 
-    void Note_Destroy() {
+    void Note_Destroy() 
+    {
         RGManager.access.note_list.Remove(gameObject);
         ObjectPool.access.Push("note", gameObject);
     }
 
 
-    void Judge() {
-        int judge_value = (int)(Mathf.Abs(scale_x - 5)*2);
-        RGManager.access.Note_Judge(gameObject, judge_value);
+    void Judge() 
+    {
+        RGManager.access.Note_Judge(gameObject, scale_x);
     }
 }

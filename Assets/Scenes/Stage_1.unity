@@ -262,6 +262,11 @@ MonoBehaviour:
   hp: 0
   armor: 0
   attack: 0
+  speed: 4
+  dash_dis: 1.5
+  dash_speed: 15
+  jump_power: 14
+  jump_count_max: 3
 --- !u!1 &178220648
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +489,7 @@ GameObject:
   - component: {fileID: 694855542}
   - component: {fileID: 694855541}
   - component: {fileID: 694855540}
+  - component: {fileID: 694855544}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: Untagged
@@ -554,6 +560,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694855544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 694855539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4ac9f9eb17046e7bb6347609f9f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1231759044}
 --- !u!1 &817582618
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,13 +720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 4
-  jump_power: 14
-  dash_dis: 1
-  dash_speed: 25
   is_dash: 0
-  jump_count_max: 2
-  jump_count_cur: 0
+  is_jumping: 0
 --- !u!61 &1231759046
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -752,7 +765,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!4 &1231759049
 Transform:
@@ -1218,5 +1231,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   note_list: []
   note_parent: {fileID: 1315320070}
-  player: {fileID: 0}
+  player: {fileID: 1231759044}
   text: {fileID: 226316201}
+  judge_standard: 2
