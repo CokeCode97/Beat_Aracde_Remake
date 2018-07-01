@@ -56,20 +56,50 @@ public class LifeObject : MonoBehaviour
     // Stat
     //============================
 
-
+    [Header("Stat")]
 
     public float hp;
     public float armor;
     public float attack;
 
+    [Space]
+
+    [Header("Move")]
+    public float speed;
+
+    [Space]
+
+    [Header("Dash")]
+    public float dash_dis;
+    public float dash_speed;
+
+    [Space]
+
+    [Header("Jump")]
+    public float jump_power;
+    public float jump_count_max;
 
 
 
 
 
-	
-	// Update is called once per frame
-	void Update () 
+    //============================
+    // Initialize
+    //============================
+
+    void Init()
+    {
+        PlayerMove pm = transform.parent.GetComponent<PlayerMove>();
+        pm.Init_Move(speed, dash_dis, dash_speed, jump_power, jump_count_max);
+    }
+
+
+
+    //============================
+    // Update
+    //============================
+
+    void Update () 
     {
         
 	}

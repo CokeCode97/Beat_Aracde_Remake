@@ -4,40 +4,85 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
 
+    //============================
+    // Component
+    //============================
+
     Rigidbody2D rigid;
     Collider2D collider;
-
     GameObject character_object;
 
+
+
+    //============================
+    // Enum
+    //============================
     [SerializeField]
     Direction direction = Direction.right;
+
+
+
+    //============================
+    // Delegate
+    //============================
 
     public delegate void Dash_Delegate(float rate = 0);
     public delegate void Move_Delegate(float rate = 0);
     public delegate void Jump_Delegate(float rate = 0);
+
+
+
+    //============================
+    // Event
+    //============================
 
     public event Dash_Delegate dash_event;
     public event Move_Delegate move_event;
     public event Jump_Delegate jump_event;
 
 
-    public float speed;
-    public float jump_power;
 
-    public float dash_dis;
-    public float dash_speed;
-    public bool is_dash;
-
-    public float jump_count_max;
-    public float jump_count_cur;
-
+    //============================
+    // Vector
+    //============================
 
     Vector3 angle = new Vector3();
+
+
+
+    //============================
+    // Stat
+    //============================
+
+    float speed;
+
+    [Space]
+
+    [Header("Dash")]
+    public bool is_dash;
+    float dash_dis;
+    float dash_speed;
+
+    [Space]
+
+    [Header("Jump")]
+    public bool is_jumping;
+    float jump_power;
+    float jump_count_max;
+    float jump_count_cur;
+
+
+
+    //============================
+    // Coroutine
+    //============================
 
     IEnumerator DashCoroutine()
     {
         float dis = 0;
-        rigid.velocity = new Vector2(0, 0);
+        is_dash = true;
+
+        rigid.velocity = Vector2.zero;
         rigid.gravityScale = 0;
 
         while (dis < dash_dis)
@@ -46,39 +91,54 @@ public class PlayerMove : MonoBehaviour {
                 transform.Translate(-dash_speed * Time.deltaTime, 0, 0);
             else
                 transform.Translate(dash_speed * Time.deltaTime, 0, 0);
+
             dis += dash_speed * Time.deltaTime;
 
             yield return null;
         }
+
         is_dash = false;
+
         rigid.velocity = new Vector2(0, 0);
         rigid.gravityScale = 1;
     }
 
 
-    // Use this for initialization
+
+
+
+    //============================
+    // Initialize
+    //============================
+
     void Awake()
     {
         rigid = transform.GetComponent<Rigidbody2D>();
         collider = transform.GetComponent<Collider2D>();
         character_object = transform.GetChild(0).gameObject;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //if(Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    Move(Direction.left);
-        //}
-        //if(Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    Move(Direction.right);
-        //}
-        //if(Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    Jump();
-        //}
 
+
+    void Start()
+    {
+        character_object.SendMessage("Init");
+    }
+
+    public void Init_Move(float speed, float dash_dis, float dash_speed, float jump_power, float jump_count_max)
+    {
+        this.speed = speed;
+        this.dash_dis = dash_dis;
+        this.dash_speed = dash_speed;
+        this.jump_power = jump_power;
+        this.jump_count_max = jump_count_max;
+    }
+
+    //============================
+    // Update
+    //============================
+
+    void Update ()
+    {
         if (rigid.velocity.y > 0)
         {
             collider.isTrigger = true;
@@ -90,7 +150,12 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 
-    protected virtual void Move(Direction direction)
+
+    //============================
+    // Move Handling
+    //============================
+
+    private void Move(Direction direction)
     {
         if (move_event != null)
             move_event();
@@ -103,12 +168,20 @@ public class PlayerMove : MonoBehaviour {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
+
     protected virtual void Move(Vector2 move_vector)
     {
         if (move_event != null)
             move_event();
         rigid.AddForce(move_vector, ForceMode2D.Impulse);
     }
+
+
+    protected virtual void Dash()
+    {
+        StartCoroutine(DashCoroutine());
+    }
+
 
     protected virtual void Jump()
     {
@@ -119,14 +192,10 @@ public class PlayerMove : MonoBehaviour {
         {
             rigid.velocity = Vector2.up * jump_power;
             jump_count_cur++;
+            is_jumping = true;
         }
     }
 
-    protected virtual void Dash()
-    {
-        StartCoroutine(DashCoroutine());
-        is_dash = true;
-    }
 
     protected virtual void Change_Direction(Direction direction)
     {
@@ -139,12 +208,17 @@ public class PlayerMove : MonoBehaviour {
     }
 
 
+
+    //============================
+    // Collision Handling
+    //============================
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Block") && is_jumping)
         {
             jump_count_cur = 0;
-            print("착지");
+            is_jumping = false;
         }
     }
 }
