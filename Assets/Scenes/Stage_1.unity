@@ -259,18 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80622f150654f48dc82e9feb5da44a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
   hp: 0
-  speed: 5
-  jump_power: 12
   armor: 0
   attack: 0
-  dash_dis: 2
-  dash_speed: 20
-  is_dash: 0
-  jump_count_max: 1
-  jump_count_cur: 0
-  y_vel: 0
 --- !u!1 &178220648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1109,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8790669456c1d4747b1350c28b90717b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
+  speed: 5
+  jump_power: 12
+  dash_dis: 4
+  dash_speed: 30
+  is_dash: 0
+  jump_count_max: 2
+  jump_count_cur: 0
 --- !u!61 &1971000401
 BoxCollider2D:
   m_ObjectHideFlags: 0
